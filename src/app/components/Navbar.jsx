@@ -14,8 +14,9 @@ const menuItems = [
     icon: <Boxes size={18} />,
     locked: false,
     dropdown: [
-      { label: 'Add Product', path: '/products/add' },
-      { label: 'Product List', path: '/products/list' }
+      { label: 'Products/Services', path: '/products/add' },
+      { label: 'Product Group', path: '/products/group' },
+      { label: 'stock', path: '/products/list' }
     ]
   },
   { label: 'Sale Invoice', icon: <FileText size={18} />, locked: false, path: '/sales' },
@@ -94,9 +95,9 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex justify-start bg-white text-gray-700 border-t border-gray-200">
+      <div className="hidden md:flex justify-start bg-white text-gray-700 ">
         {menuItems.map((item, index) => (
-          <div key={index} className="relative group flex-1 text-center">
+          <div key={index} className="relative group flex-1 text-center border border-gray-200">
             <div
               className="flex flex-col items-center justify-center py-3 text-sm hover:text-teal-600 cursor-pointer"
               onClick={() => item.dropdown && toggleDropdown(index)}
@@ -140,7 +141,7 @@ const Navbar = () => {
 
       {/* Mobile Sidebar */}
       {sidebarOpen && (
-        <div className="md:hidden fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 p-4 overflow-y-auto">
+        <div className="md:hidden fixed inset-y-0 left-0 w-64 bg-white  shadow-lg z-50 p-4 overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold text-teal-600">Menu</h2>
             <button onClick={() => setSidebarOpen(false)}>
@@ -149,9 +150,9 @@ const Navbar = () => {
           </div>
           <div className="flex flex-col">
             {menuItems.map((item, index) => (
-              <div key={index}>
+              <div key={index} className="">
                 <div
-                  className="flex justify-between items-center p-2 hover:bg-teal-100 cursor-pointer"
+                  className="flex justify-between  items-center p-2 hover:bg-teal-100 cursor-pointer"
                   onClick={() => item.dropdown ? toggleDropdown(index) : null}
                 >
                   <span className="flex items-center gap-2">

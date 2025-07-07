@@ -25,43 +25,81 @@ const quickLinks = [
 ];
 
 const newVsExistingData = [
-  { month: 'Apr', New: 50, Existing: 100 },
-  { month: 'May', New: 75, Existing: 90 },
-  { month: 'Jun', New: 100, Existing: 50 }
+  { month: 'Jan 2025', New: 0, Existing: 0 },
+  { month: 'Feb 2025', New: 100, Existing: 0 },
+  { month: 'Mar 2025', New: 0, Existing: 0 },
+  { month: 'Apr 2025', New: 0, Existing: 0 },
+  { month: 'May 2025', New: 0, Existing: 0 },
+  { month: 'Jun 2025', New: 0, Existing: 100 },
+  { month: 'Jul 2025', New: 0, Existing: 0 },
 ];
 
 const invoiceCountData = [
-  { month: 'Apr', Sale: 80, Purchase: 40 },
-  { month: 'May', Sale: 60, Purchase: 60 },
-  { month: 'Jun', Sale: 100, Purchase: 20 }
+  { month: 'Jan 2025', Sale: 0.1, Purchase: 0 },
+  { month: 'Feb 2025', Sale: 1, Purchase: 0 },
+  { month: 'Mar 2025', Sale: 0.1, Purchase: 0 },
+  { month: 'Apr 2025', Sale: 0.1, Purchase: 0 },
+  { month: 'May 2025', Sale: 0.1, Purchase: 0 },
+  { month: 'Jun 2025', Sale: 1, Purchase: 0 },
+  { month: 'Jul 2025', Sale: 0.1, Purchase: 0 },
 ];
 
 const invoiceAmountData = [
-  { month: 'Apr', Sale: 8000, Purchase: 5000 },
-  { month: 'May', Sale: 10000, Purchase: 7000 },
-  { month: 'Jun', Sale: 6000, Purchase: 3000 }
+  { month: 'Jan 2025', Sale: 0, Purchase: 0 },
+  { month: 'Feb 2025', Sale: 300000, Purchase: 0 },
+  { month: 'Mar 2025', Sale: 0, Purchase: 0 },
+  { month: 'Apr 2025', Sale: 0, Purchase: 0 },
+  { month: 'May 2025', Sale: 0, Purchase: 0 },
+  { month: 'Jun 2025', Sale: 600000, Purchase: 0 },
+  { month: 'Jul 2025', Sale: 0, Purchase: 0 },
+];
+
+const bestSellingProducts = [
+  { name: 'Gold ornament below 2gm (91.6)', qty: 58.36 },
+  { name: 'Making charge', qty: 42.39 },
+  { name: 'Gold ornament bangle', qty: 42.39 },
+];
+
+const leastSellingProducts = [
+  { name: 'Making charge', qty: 42.39 },
+  { name: 'Gold ornament bangle', qty: 42.39 },
+  { name: 'Gold ornament below 2gm (91.6)', qty: 58.36 },
+];
+
+const topCustomers = [
+  { name: 'Rukmani Chains', amount: '5,10,942.00' },
+  { name: 'Savita Pradeep Mody', amount: '3,36,126.00' },
+];
+
+const salesInvoiceDue = [
+  { id: 1, company: 'Atma Bandhu Gold', name: 'Rahul Prakash Gandhi', phone: '', dueDate: '02-Jul-24', dueFrom: '366 Days', amount: '10,86,765.00' },
+  { id: 2, company: 'Mamta vaibhav malkankar', name: '', phone: '', dueDate: '18-Aug-24', dueFrom: '319 Days', amount: '1,85,001.00' },
+  { id: 3, company: 'Atma Bandhu Gold', name: 'Rahul Prakash Gandhi', phone: '', dueDate: '12-Sep-24', dueFrom: '294 Days', amount: '7,38,000.00' },
+  { id: 4, company: 'M/s. Jai Labdhi Enterprise', name: 'Jitendra Trilokchand Jain', phone: '', dueDate: '11-Oct-24', dueFrom: '265 Days', amount: '36,67,530.00' },
+  { id: 5, company: 'M/s. Jai Labdhi Enterprise', name: 'Jitendra Trilokchand Jain', phone: '', dueDate: '11-Oct-24', dueFrom: '265 Days', amount: '37,50,000.00' },
 ];
 
 const Dashboard = () => {
   const [view, setView] = useState('analytics');
 
   return (
-    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
-      <div className="flex justify-center mb-8">
+    <div className="p-4 md:p-6 bg-gray-100 min-h-screen font-sans">
+      <div className="bg-white border border-dashed border-gray-300 text-sm text-gray-700 p-4 rounded mb-4 flex justify-between items-center">
+        <span>This email address will be printed on your invoice also if you lost your phone you can log in to your account with this email address.</span>
+        <button className="bg-teal-500 text-white text-xs px-3 py-1 rounded">Add Email</button>
+      </div>
+
+      <div className="flex justify-center mb-6">
         <div className="inline-flex bg-gray-200 rounded-full p-1">
           <button
             onClick={() => setView('analytics')}
-            className={`px-6 py-2 rounded-full text-sm font-medium ${
-              view === 'analytics' ? 'bg-teal-500 text-white' : 'text-gray-600'
-            }`}
+            className={`px-6 py-2 rounded-full text-sm font-medium ${view === 'analytics' ? 'bg-teal-500 text-white' : 'text-gray-600'}`}
           >
             Analytics
           </button>
           <button
             onClick={() => setView('quicklinks')}
-            className={`px-6 py-2 rounded-full text-sm font-medium ${
-              view === 'quicklinks' ? 'bg-teal-500 text-white' : 'text-gray-600'
-            }`}
+            className={`px-6 py-2 rounded-full text-sm font-medium ${view === 'quicklinks' ? 'bg-teal-500 text-white' : 'text-gray-600'}`}
           >
             Quick Links
           </button>
@@ -71,10 +109,7 @@ const Dashboard = () => {
       {view === 'quicklinks' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {quickLinks.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-6 rounded shadow flex flex-col items-center justify-center text-center hover:shadow-md transition"
-            >
+            <div key={idx} className="bg-white p-6 rounded shadow flex flex-col items-center justify-center text-center hover:shadow-md transition">
               <div className="text-teal-600 mb-2">{item.icon}</div>
               <div className="text-sm font-medium text-gray-700">{item.label}</div>
             </div>
@@ -84,36 +119,36 @@ const Dashboard = () => {
         <>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-sm text-gray-500">Sales (Jul 2025)</h2>
+              <h2 className="text-sm text-gray-500">Sale - Jul 2025</h2>
               <p className="text-xl font-bold mt-2">₹0</p>
               <p className="text-sm text-green-500 mt-1">+GST 0</p>
             </div>
             <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-sm text-gray-500">Purchase (Jul 2025)</h2>
+              <h2 className="text-sm text-gray-500">Purchase - Jul 2025</h2>
               <p className="text-xl font-bold mt-2">₹0</p>
               <p className="text-sm text-green-500 mt-1">+GST 0</p>
             </div>
             <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-sm text-gray-500">Revenue</h2>
-              <p className="text-2xl font-bold mt-2">70</p>
+              <h2 className="text-sm text-gray-500">Expense</h2>
+              <p className="text-xl font-bold mt-2">₹0</p>
             </div>
             <div className="bg-white p-4 shadow rounded">
               <h2 className="text-sm text-gray-500">Income</h2>
-              <p className="text-2xl font-bold mt-2">71</p>
+              <p className="text-xl font-bold mt-2">₹0</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="bg-white p-4 shadow rounded">
-              <h3 className="font-semibold mb-4">New vs Existing Customers</h3>
+              <h3 className="font-semibold mb-4">New VS Existing Customer Sale</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={newVsExistingData}>
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="New" fill="#14b8a6" />
-                  <Bar dataKey="Existing" fill="#64748b" />
+                  <Bar dataKey="New" fill="#14b8a6" name="New Customer Sale" />
+                  <Bar dataKey="Existing" fill="#94a3b8" name="Existing Customer Sale" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -146,6 +181,90 @@ const Dashboard = () => {
                 </LineChart>
               </ResponsiveContainer>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div className="bg-white p-4 shadow rounded">
+              <h3 className="font-semibold mb-4">Best Selling Products</h3>
+              <ul>
+                {bestSellingProducts.map((item, idx) => (
+                  <li key={idx} className="flex justify-between text-sm py-1">
+                    <span>{item.name}</span>
+                    <span>{item.qty}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-white p-4 shadow rounded">
+              <h3 className="font-semibold mb-4">Least Selling Products</h3>
+              <ul>
+                {leastSellingProducts.map((item, idx) => (
+                  <li key={idx} className="flex justify-between text-sm py-1">
+                    <span>{item.name}</span>
+                    <span>{item.qty}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-white p-4 shadow rounded">
+              <h3 className="font-semibold mb-4">Low Stock</h3>
+              <p className="text-sm text-gray-500">No records found</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-white p-4 shadow rounded">
+              <h3 className="font-semibold mb-4">Top Customers</h3>
+              <ul>
+                {topCustomers.map((item, idx) => (
+                  <li key={idx} className="flex justify-between text-sm py-1">
+                    <span>{item.name}</span>
+                    <span>{item.amount}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-white p-4 shadow rounded">
+              <h3 className="font-semibold mb-4">Top Vendors</h3>
+              <p className="text-sm text-gray-500">No records found</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 shadow rounded mb-6">
+            <h3 className="font-semibold mb-4">Sales Invoice Due</h3>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left border-b">
+                  <th className="py-2">Invoice No.</th>
+                  <th>Company Name</th>
+                  <th>Name</th>
+                  <th>Due Date</th>
+                  <th>Due From</th>
+                  <th>Remaining Payment</th>
+                </tr>
+              </thead>
+              <tbody>
+                {salesInvoiceDue.map((item) => (
+                  <tr key={item.id} className="border-b">
+                    <td className="py-2">{item.id}</td>
+                    <td>{item.company}</td>
+                    <td>{item.name}</td>
+                    <td>{item.dueDate}</td>
+                    <td>{item.dueFrom}</td>
+                    <td>{item.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="mt-2 text-right text-teal-500 text-sm cursor-pointer">View All</div>
+          </div>
+
+          <div className="bg-white p-4 shadow rounded">
+            <h3 className="font-semibold mb-4">Purchase Invoice Due</h3>
+            <p className="text-sm text-gray-500">No records found</p>
           </div>
         </>
       )}
